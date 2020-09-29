@@ -13,6 +13,7 @@ final class Update extends Base
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         $input = $request->getParsedBody();
+    
         $review_app_user = $this->getReview_app_userService()->update($input, (int) $args['id']);
 
         return JsonResponse::withJson($response, json_encode($review_app_user));

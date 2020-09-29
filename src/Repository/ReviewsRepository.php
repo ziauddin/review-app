@@ -73,8 +73,8 @@ final class ReviewsRepository
         $query = 'UPDATE `reviews` SET `review_comment` = :review_comment, `review_rate` = :review_rate, `review_app_user_id` = :review_app_user_id, `review_items_id` = :review_items_id, `deleted_at` = :deleted_at, `created_at` = :created_at, `updated_at` = :updated_at WHERE `id` = :id';
         $statement = $this->getDb()->prepare($query);
         $statement->bindParam('id', $reviews->id);
-	$statement->bindParam('comment', $reviews->review_comment);
-	$statement->bindParam('rate', $reviews->review_rate);
+	$statement->bindParam('review_comment', $reviews->review_comment);
+	$statement->bindParam('review_rate', $reviews->review_rate);
 	$statement->bindParam('review_app_user_id', $reviews->review_app_user_id);
 	$statement->bindParam('review_items_id', $reviews->review_items_id);
 	$statement->bindParam('deleted_at', $reviews->deleted_at);
