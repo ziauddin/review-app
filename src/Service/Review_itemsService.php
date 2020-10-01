@@ -21,6 +21,10 @@ final class Review_itemsService
         return $this->review_itemsRepository->checkAndGet($review_itemsId);
     }
 
+    protected function checkAndGetWithReview(int $review_itemsId)  {
+        return $this->review_itemsRepository->checkAndGetWithReview($review_itemsId);
+    }
+
     public function getAll(): array
     {
         return $this->review_itemsRepository->getAll();

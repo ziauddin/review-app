@@ -42,9 +42,9 @@ final class Review_itemsRepository
         $statement->execute();
         $review_items = $statement->fetchObject();
         if(!empty($review_items)) {
-            $review_items['reviews'] = self::getAllReviews($review_itemsId);
-            $review_items['no_of_reviews'] = count($review_items['reviews']);
-            $review_items['avg_rating'] = self::getAvgReviewRating($review_itemsId);
+            $review_items->reviews = self::getAllReviews((int)$review_itemsId);
+            $review_items->no_of_reviews = count($review_items->reviews);
+            $review_items->avg_rating = self::getAvgReviewRating((int)$review_itemsId);
         }
         if (empty($review_items)) {
             throw new Review_itemsException('Review_items not found.', 404);
