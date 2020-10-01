@@ -12,7 +12,7 @@ final class GetAll extends Base
 {
     public function __invoke(Request $request, Response $response): Response
     {
-        $review_itemss = $this->getReview_itemsService()->getAll();
+        $review_itemss = $this->getReview_itemsService()->getAllWithReview();
 
         return JsonResponse::withJson($response, json_encode($review_itemss));
     }

@@ -13,13 +13,11 @@
     ],
     "homepage": "https://github.com/maurobonfietti/slim4-api-skeleton",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Mauro Bonfietti",
-            "email": "mauro.bonfietti@gmail.com",
-            "homepage": "https://github.com/maurobonfietti"
-        }
-    ],
+    "authors": [{
+        "name": "Mauro Bonfietti",
+        "email": "mauro.bonfietti@gmail.com",
+        "homepage": "https://github.com/maurobonfietti"
+    }],
     "require": {
         "php": "^7.3",
         "pimple/pimple": "^3.2",

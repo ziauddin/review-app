@@ -36,11 +36,27 @@ final class Review_itemsRepository
 
     public function getAll(): array
     {
-        $query = 'SELECT * FROM `review_items` ORDER BY `id`';
+        $query = 'SELECT * FROM `review_items` ORDER BY `id` desc';
         $statement = $this->getDb()->prepare($query);
         $statement->execute();
 
         return $statement->fetchAll();
+    }
+
+    public function getAllWithReview(): array
+    {
+        $review_items = self::getAll();
+        //print_r($review_items);
+        //die();
+        foreach($review_items as $item)  {
+            
+            $item['reviews'] = self::getAllReviews($item['id']);
+            $item['no_of_reviews'] = count($item['reviews']);
+            $item['avg_rating'] = self::getAvgReviewRating($item['id']);
+            $update_review_items [] = $item;
+        }
+
+        return $update_review_items;
     }
 
     public function create(object $review_items)
@@ -95,4 +111,28 @@ final class Review_itemsRepository
         $statement->bindParam('id', $review_itemsId);
         $statement->execute();
     }
+
+    public function getAllReviews(int $review_itemId)  {
+        $query = 'SELECT `review_comment`,`review_rate`,`created_at` FROM `reviews` where `review_items_id` = :review_items_id  ORDER BY `id` desc';
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam('review_items_id', $review_itemId);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    public function getAvgReviewRating(int $review_itemId)  {
+        $query = 'SELECT AVG(review_rate) as rating FROM `reviews` where `review_items_id` = :review_items_id';
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam('review_items_id', $review_itemId);
+        $statement->execute();
+        $review_rating = $statement->fetchObject();
+        if ($review_rating->rating > 0) {
+            return number_format((float)$review_rating->rating,2,'.', '');
+        }
+        else {
+            return 0;
+        }
+    }
+
 }
