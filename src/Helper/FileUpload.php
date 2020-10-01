@@ -14,7 +14,7 @@ final class FileUpload
     ): String {
         if(count($files)> 0){
             $result = '';
-            $file_path = dirname(dirname(__DIR__)) . '/public' . $_SERVER['UPLOAD_DIR'];
+            $file_path = dirname(dirname(__DIR__)) . $_SERVER['UPLOAD_DIR'];
             //echo $file_path;
             //die();
            foreach($files as $name => $file)  {
