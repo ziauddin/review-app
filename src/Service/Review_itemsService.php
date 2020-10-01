@@ -36,6 +36,10 @@ final class Review_itemsService
         return $this->checkAndGet($review_itemsId);
     }
 
+    public function getOneWithReview(int $review_itemsId)  {
+        return $this->checkAndGetWithReview($review_itemsId);
+    }
+
     public function create(array $input)
     {
         $review_items = json_decode(json_encode($input), false);

@@ -34,6 +34,25 @@ final class Review_itemsRepository
         return $review_items;
     }
 
+    public function checkAndGetWithReview(int $review_itemsId)
+    {
+        $query = 'SELECT * FROM `review_items` WHERE `id` = :id';
+        $statement = $this->getDb()->prepare($query);
+        $statement->bindParam('id', $review_itemsId);
+        $statement->execute();
+        $review_items = $statement->fetchObject();
+        if(!empty($review_items)) {
+            $review_items['reviews'] = self::getAllReviews($review_itemsId);
+            $review_items['no_of_reviews'] = count($review_items['reviews']);
+            $review_items['avg_rating'] = self::getAvgReviewRating($review_itemsId);
+        }
+        if (empty($review_items)) {
+            throw new Review_itemsException('Review_items not found.', 404);
+        }
+
+        return $review_items;
+    }
+
     public function getAll(): array
     {
         $query = 'SELECT * FROM `review_items` ORDER BY `id` desc';

@@ -12,7 +12,7 @@ final class GetOne extends Base
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $review_items = $this->getReview_itemsService()->getOne((int) $args['id']);
+        $review_items = $this->getReview_itemsService()->getOneWithReview((int) $args['id']);
 
         return JsonResponse::withJson($response, json_encode($review_items));
     }
