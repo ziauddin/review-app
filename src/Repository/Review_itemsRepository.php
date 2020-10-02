@@ -150,7 +150,7 @@ final class Review_itemsRepository
             return number_format((float)$review_rating->rating,2,'.', '');
         }
         else {
-            return 0;
+            return '0';
         }
     }
 
