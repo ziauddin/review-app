@@ -67,6 +67,7 @@ final class Review_itemsRepository
         $review_items = self::getAll();
         //print_r($review_items);
         //die();
+        $update_review_items = [];
         foreach($review_items as $item)  {
             
             $item['reviews'] = self::getAllReviews((int)$item['id']);
