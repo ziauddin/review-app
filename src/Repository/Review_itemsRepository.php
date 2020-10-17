@@ -72,7 +72,7 @@ final class Review_itemsRepository
             
             $item['reviews'] = self::getAllReviews((int)$item['id']);
             $item['no_of_reviews'] = count($item['reviews']);
-            $item['avg_rating'] = self::getAvgReviewRating($item['id']);
+            $item['avg_rating'] = self::getAvgReviewRating((int)$item['id']);
             $update_review_items [] = $item;
         }
 
