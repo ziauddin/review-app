@@ -64,4 +64,7 @@ final class Review_itemsService
         $this->checkAndGet($review_itemsId);
         $this->review_itemsRepository->delete($review_itemsId);
     }
+    public function getItemReviews(int $review_itemsId): array {
+        return $this->review_itemsRepository->getAllReviews($review_itemsId);
+    }
 }

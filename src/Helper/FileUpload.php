@@ -29,7 +29,7 @@ final class FileUpload
         return $result;
     }
 
-    protected function moveUploadedFile($directory, $uploadedFile) : String  {
+    protected static function moveUploadedFile($directory, $uploadedFile) : String  {
             $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
             $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
             $filename = sprintf('%s.%0.8s', $basename, $extension);

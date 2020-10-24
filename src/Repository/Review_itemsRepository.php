@@ -42,9 +42,9 @@ final class Review_itemsRepository
         $statement->execute();
         $review_items = $statement->fetchObject();
         if(!empty($review_items)) {
-            $review_items->reviews = self::getAllReviews((int)$review_itemsId);
+            $review_items->reviews = $this->getAllReviews((int)$review_itemsId);
             $review_items->no_of_reviews = count($review_items->reviews);
-            $review_items->avg_rating = self::getAvgReviewRating((int)$review_itemsId);
+            $review_items->avg_rating = $this->getAvgReviewRating((int)$review_itemsId);
         }
         if (empty($review_items)) {
             throw new Review_itemsException('Review_items not found.', 404);
@@ -64,15 +64,15 @@ final class Review_itemsRepository
 
     public function getAllWithReview(): array
     {
-        $review_items = self::getAll();
+        $review_items = $this->getAll();
         //print_r($review_items);
         //die();
         $update_review_items = [];
         foreach($review_items as $item)  {
             
-            $item['reviews'] = self::getAllReviews((int)$item['id']);
+            $item['reviews'] = $this->getAllReviews((int)$item['id']);
             $item['no_of_reviews'] = count($item['reviews']);
-            $item['avg_rating'] = self::getAvgReviewRating((int)$item['id']);
+            $item['avg_rating'] = $this->getAvgReviewRating((int)$item['id']);
             $update_review_items [] = $item;
         }
 
@@ -137,8 +137,11 @@ final class Review_itemsRepository
         $statement = $this->getDb()->prepare($query);
         $statement->bindParam('review_items_id', $review_itemId);
         $statement->execute();
-
-        return $statement->fetchAll();
+        $reviews = $statement->fetchAll();
+        if (empty($reviews)) {
+            return array();
+         }
+        return $reviews;
     }
 
     public function getAvgReviewRating(int $review_itemId)  {
